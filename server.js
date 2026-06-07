@@ -17,7 +17,19 @@ const PORT = process.env.PORT || 3001;
 // ── Middlewares sécurité ──────────────────────────────────
 app.use(helmet());
 app.use(cors({
-    origin: process.env.ALLOWED_ORIGINS?.split(',') || '*',
+    origin: function(origin, callback) {
+        // Autoriser les requêtes sans origin (app desktop Electron, Postman, apps mobiles)
+        if (!origin) return callback(null, true);
+
+        const allowed = process.env.ALLOWED_ORIGINS
+            ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim())
+            : [];
+
+        if (allowed.length === 0 || allowed.includes(origin)) {
+            return callback(null, true);
+        }
+        callback(new Error('CORS non autorisé pour: ' + origin));
+    },
     credentials: true
 }));
 app.use(morgan('combined'));
