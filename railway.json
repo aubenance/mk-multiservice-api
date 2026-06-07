@@ -1,7 +1,4 @@
-# ============================================================
-#  MK MULTISERVICE — Configuration Railway
-#  Fichier : railway.json
-# ============================================================
+
 {
   "$schema": "https://railway.app/railway.schema.json",
   "build": {
