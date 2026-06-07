@@ -74,6 +74,19 @@ app.use('/api/settings',   settingsRoutes);
 app.use('/api/logs',       logsRoutes);
 app.use('/api/categories', categoriesRoutes);
 
+// ── Alias sans /api (compatibilité app desktop) ──────────
+app.use('/auth',       loginLimiter, authRoutes);
+app.use('/products',   productsRoutes);
+app.use('/stocks',     stocksRoutes);
+app.use('/sales',      salesRoutes);
+app.use('/customers',  customersRoutes);
+app.use('/services',   servicesRoutes);
+app.use('/reports',    reportsRoutes);
+app.use('/users',      usersRoutes);
+app.use('/settings',   settingsRoutes);
+app.use('/logs',       logsRoutes);
+app.use('/categories', categoriesRoutes);
+
 // ── Santé ─────────────────────────────────────────────────
 app.get('/health', (req, res) => {
     res.json({
